@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import createUsersService from "../services/users/createUsers.services";
-import { TUsersRequest } from "../interfaces/users.interfaces";
+import { TUsersRequest, TUsersUpdate } from "../interfaces/users.interfaces";
 import listUsersService from "../services/users/listUsers.services";
+import updateUsersService from "../services/users/updateUsers.services";
 
 const createUsersController = async (req: Request, res: Response): Promise<Response> => {
 
@@ -11,13 +12,23 @@ const createUsersController = async (req: Request, res: Response): Promise<Respo
     return res.status(201).json(newUser)
 }
 
-const listMoviesController = async (req: Request, res: Response): Promise<Response> => {
+const listUsersController = async (req: Request, res: Response): Promise<Response> => {
 
     const users = await listUsersService()
     return res.status(200).json(users)
 }
 
+const updateUsersController = async (req: Request, res: Response): Promise<Response> => {
+
+    const usersData: TUsersUpdate = req.body
+    const usersId: number = Number(req.params.id)
+
+    const newUsersData = await updateUsersService(usersData, usersId)
+    return res.json(newUsersData)
+}
+
 export {
     createUsersController,
-   /*  listMoviesController */
+    listUsersController,
+    updateUsersController
 }

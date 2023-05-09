@@ -9,10 +9,10 @@ const ensureEmailAlreadyExistsMiddleware = async (
   res: Response,
   next: NextFunction
 ): Promise<Response | void> => {
-  const movieRepository: Repository<User> = AppDataSource.getRepository(User);
+  const userRepository: Repository<User> = AppDataSource.getRepository(User);
 
   if(req.body.email){
-  const user: User | null = await movieRepository.findOne({
+  const user: User | null = await userRepository.findOne({
     where: {
       email: req.body.email,
     },
@@ -21,6 +21,7 @@ const ensureEmailAlreadyExistsMiddleware = async (
   if(user){
     throw new AppError("Email already exists", 409)
   }
+
 }
   return next();
 };

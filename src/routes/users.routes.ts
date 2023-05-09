@@ -1,12 +1,42 @@
 import { Router } from "express";
-import { createUsersController } from "../controllers/users.controllers";
+import {
+  createUsersController,
+  listUsersController,
+  updateUsersController,
+} from "../controllers/users.controllers";
 import { ensureEmailAlreadyExistsMiddleware } from "../middlewares/ensureEmailAlreadyExists.middlewares";
 import { ensurebodyIsValidMiddleware } from "../middlewares/ensureBodyIsValid.middlewares";
-import { userSchemaRequest } from "../schemas/users.schemas";
+import {
+  updateSchemaRequest,
+  userSchemaRequest,
+} from "../schemas/users.schemas";
+import { ensureTokenIsValidMiddleware } from "../middlewares/ensureTokenIsValid.middlewares";
+import { ensureAdminIsTrueMiddleware } from "../middlewares/ensureAdminIsTrue.middlewares";
+import { ensureUpdateAndDeleteIsAdmin } from "../middlewares/ensureUpdateAndDeleteIsAdmin.middleware";
+import { ensureIdIsValidMiddleware } from "../middlewares/ensureIdIsValid.middlewares";
 
-const usersRoutes: Router = Router()
+const usersRoutes: Router = Router();
 
-usersRoutes.post('', ensurebodyIsValidMiddleware(userSchemaRequest), ensureEmailAlreadyExistsMiddleware, createUsersController)
-usersRoutes.get('',)
+usersRoutes.post(
+  "",
+  ensurebodyIsValidMiddleware(userSchemaRequest),
+  ensureEmailAlreadyExistsMiddleware,
+  createUsersController
+);
+usersRoutes.get(
+  "",
+  ensureTokenIsValidMiddleware,
+  ensureAdminIsTrueMiddleware,
+  listUsersController
+);
+usersRoutes.patch(
+  "/:id",
+  ensurebodyIsValidMiddleware(updateSchemaRequest),
+  ensureTokenIsValidMiddleware,
+  ensureIdIsValidMiddleware,
+  ensureUpdateAndDeleteIsAdmin,
+  ensureEmailAlreadyExistsMiddleware,
+  updateUsersController
+);
 
-export default usersRoutes
+export default usersRoutes;
