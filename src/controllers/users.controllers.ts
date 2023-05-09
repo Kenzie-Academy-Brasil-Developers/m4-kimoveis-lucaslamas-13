@@ -3,6 +3,7 @@ import createUsersService from "../services/users/createUsers.services";
 import { TUsersRequest, TUsersUpdate } from "../interfaces/users.interfaces";
 import listUsersService from "../services/users/listUsers.services";
 import updateUsersService from "../services/users/updateUsers.services";
+import deleteUsersService from "../services/users/deleteUsers.service";
 
 const createUsersController = async (req: Request, res: Response): Promise<Response> => {
 
@@ -27,8 +28,18 @@ const updateUsersController = async (req: Request, res: Response): Promise<Respo
     return res.json(newUsersData)
 }
 
+const deleteUsersController = async (req: Request, res: Response): Promise<Response> => {
+
+    const usersId: number = Number(req.params.id)
+
+    await deleteUsersService(usersId)
+
+    return res.status(204).send()
+}
+
 export {
     createUsersController,
     listUsersController,
-    updateUsersController
+    updateUsersController,
+    deleteUsersController
 }
