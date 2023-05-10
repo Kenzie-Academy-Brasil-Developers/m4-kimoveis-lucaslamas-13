@@ -6,15 +6,15 @@ import {
   updateUsersController,
 } from "../controllers/users.controllers";
 import { ensureEmailAlreadyExistsMiddleware } from "../middlewares/users/ensureEmailAlreadyExists.middlewares";
-import { ensurebodyIsValidMiddleware } from "../middlewares/users/ensureBodyIsValid.middlewares";
+import { ensurebodyIsValidMiddleware } from "../middlewares/ensureBodyIsValid.middlewares";
 import {
   updateSchemaRequest,
   userSchemaRequest,
 } from "../schemas/users.schemas";
-import { ensureTokenIsValidMiddleware } from "../middlewares/users/ensureTokenIsValid.middlewares";
-import { ensureAdminIsTrueMiddleware } from "../middlewares/users/ensureAdminIsTrue.middlewares";
-import { ensureUpdateAndDeleteIsAdmin } from "../middlewares/users/ensureUpdateAndDeleteIsAdmin.middleware";
-import { ensureIdIsValidMiddleware } from "../middlewares/users/ensureIdIsValid.middlewares";
+import { ensureTokenIsValidMiddleware } from "../middlewares/ensureTokenIsValid.middlewares";
+import { ensureAdminIsTrueMiddleware } from "../middlewares/ensureAdminIsTrue.middlewares";
+import { ensureUpdateAndDeleteIsAdmin } from "../middlewares/ensureUpdateAndDeleteIsAdmin.middleware";
+import { ensureIdIsValidMiddleware } from "../middlewares/users/ensureUserIdIsValid.middlewares";
 
 const usersRoutes: Router = Router();
 

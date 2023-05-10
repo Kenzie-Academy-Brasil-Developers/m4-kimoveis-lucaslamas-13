@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { loginUsersController } from "../controllers/login.controllers";
-import { ensurebodyIsValidMiddleware } from "../middlewares/users/ensureBodyIsValid.middlewares";
+import { ensurebodyIsValidMiddleware } from "../middlewares/ensureBodyIsValid.middlewares";
 import { requestLoginSchema } from "../schemas/login.schemas";
 
 
