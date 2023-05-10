@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { loginUsersController } from "../controllers/login.controllers";
-import { ensurebodyIsValidMiddleware } from "../middlewares/ensureBodyIsValid.middlewares";
+import { ensurebodyIsValidMiddleware } from "../middlewares/users/ensureBodyIsValid.middlewares";
 import { requestLoginSchema } from "../schemas/login.schemas";
 
 
-const loginRouters: Router = Router();
+const loginRoutes: Router = Router();
 
-loginRouters.post("", ensurebodyIsValidMiddleware(requestLoginSchema), loginUsersController);
+loginRoutes.post("", ensurebodyIsValidMiddleware(requestLoginSchema), loginUsersController);
 
-export { loginRouters };
+export { loginRoutes };

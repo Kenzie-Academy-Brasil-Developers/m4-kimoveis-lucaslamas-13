@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 
 import { Repository } from "typeorm";
-import { AppDataSource } from "../data-source";
-import { AppError } from "../error";
-import { User } from "../entities";
+import { AppDataSource } from "../../data-source";
+import { AppError } from "../../error";
+import { User } from "../../entities";
 
 const ensureIdIsValidMiddleware = async (
   req: Request,

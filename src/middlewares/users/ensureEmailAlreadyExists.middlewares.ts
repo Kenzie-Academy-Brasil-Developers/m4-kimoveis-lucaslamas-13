@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { User } from "../entities";
+import { User } from "../../entities";
 import { Repository } from "typeorm";
-import { AppDataSource } from "../data-source";
-import { AppError } from "../error";
+import { AppDataSource } from "../../data-source";
+import { AppError } from "../../error";
 
 const ensureEmailAlreadyExistsMiddleware = async (
   req: Request,
