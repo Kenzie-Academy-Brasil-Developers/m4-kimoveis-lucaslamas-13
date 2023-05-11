@@ -26,13 +26,13 @@ class RealEstate {
   @Column({ type: "integer" })
   size: number;
 
-  @CreateDateColumn()
-  createdAt: Date;
+  @CreateDateColumn({ type: 'date'})
+  createdAt: string;
 
-  @UpdateDateColumn()
-  updatedAt: Date;
+  @UpdateDateColumn({ type: 'date'})
+  updatedAt: string;
 
-  @OneToOne(() => Address)//falta colocar o unique aqui
+  @OneToOne(() => Address)
   @JoinColumn()
   address: Address
 
