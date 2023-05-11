@@ -16,7 +16,7 @@ const loginUsersService = async (payload: TLoginRequest) => {
   });
 
   if (!user) {
-    throw new AppError("Wrong email/password", 401);
+    throw new AppError("Invalid credentials", 401);
   }
 
   const comparePassword = await bcrypt.compare(
@@ -25,7 +25,7 @@ const loginUsersService = async (payload: TLoginRequest) => {
   );
 
   if (!comparePassword) {
-    throw new AppError("Wrong email/password", 401);
+    throw new AppError("Invalid credentials", 401);
   }
 
   const token: string = jwt.sign(

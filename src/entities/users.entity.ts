@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { getRounds, hashSync } from "bcryptjs";
+import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 
 @Entity("users")
@@ -26,6 +27,18 @@ class User {
 
     @DeleteDateColumn({nullable: true, type: "date"})
     deletedAt: Date | null | undefined;
+
+    @BeforeInsert() 
+    @BeforeUpdate()
+    hashPassword() { 
+
+   const isEncrypted: number = getRounds(this.password); 
+
+   if (!isEncrypted) {
+      // Adicionando ao objeto que irá para o banco a senha criptografada
+      this.password = hashSync(this.password, 10);
+   }
+}
 }
 
 export default User

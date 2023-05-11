@@ -6,7 +6,7 @@ const listCategoriesService = async (): Promise<Category[]> => {
 
     const categoriesRepository: Repository<Category> = AppDataSource.getRepository(Category)
 
-    const categories: Category[] = await categoriesRepository.createQueryBuilder().getMany()
+    const categories: Category[] = await categoriesRepository.find()
 
     return categories
 }

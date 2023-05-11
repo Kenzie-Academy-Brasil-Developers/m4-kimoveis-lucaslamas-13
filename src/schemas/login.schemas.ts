@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 const requestLoginSchema = z.object({
-  email: z.string().email(),
-  password: z.string(),
+  email: z.string().max(45).email(),
+  password: z.string().max(120),
 });
 
 const responseLoginSchema = z.object({
