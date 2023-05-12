@@ -37,7 +37,6 @@ const createRealStateService = async (userData: TRealStateRequest): Promise<TRea
 
     realEstate.address.id = address.id
     const realJoinCategory = {...realEstate, category: {...category}}
-    console.log(realJoinCategory);
     
     const returnRealEstate = realEstateSchema.parse(realJoinCategory)
     

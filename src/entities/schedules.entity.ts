@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import Users from "./users.entity";
+import User from "./users.entity";
 import RealEstate from "./real_estate.entity";
 
 
@@ -9,16 +9,16 @@ class Schedule {
     id: number;
 
     @Column({ type: 'date'})
-    date: Date
+    date: string
 
-    @Column()
+    @Column({ type: 'time'})
     hour: string
 
-    @ManyToOne(() => RealEstate)
+    @ManyToOne(() => RealEstate, (realEstate) => realEstate.schedule)
     realEstate: RealEstate
 
-    @ManyToOne(() => Users)
-    user: Users
+    @ManyToOne(() => User, (user) => user.schedule)
+    user: User
 }
 
 export default Schedule

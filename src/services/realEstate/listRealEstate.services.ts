@@ -12,7 +12,6 @@ const listRealEstateService = async (): Promise<RealEstate[]> => {
             address: true
         }
     })
-    console.log(realEstate);
     
     return realEstate
 }
