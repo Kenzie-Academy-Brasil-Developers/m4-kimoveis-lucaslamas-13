@@ -1,26 +1,31 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entities";
-import { TUsersResponse, TUsersUpdate } from "../../interfaces/users.interfaces";
+import {
+  TUsersResponse,
+  TUsersUpdate,
+} from "../../interfaces/users.interfaces";
 import { userSchemaResponse } from "../../schemas/users.schemas";
 
-const updateUsersService = async (moviesData: TUsersUpdate, movieId: number): Promise<TUsersResponse> => {
+const updateUsersService = async (
+  userData: TUsersUpdate,
+  userId: number
+): Promise<TUsersResponse> => {
+  const userRepository: Repository<User> = AppDataSource.getRepository(User);
 
-    const movieRepository: Repository<User> = AppDataSource.getRepository(User)
+  const oldUserData: User | null = await userRepository.findOneBy({
+    id: userId,
+  });
 
-    const oldUserData: User | null = await movieRepository.findOneBy({
-        id: movieId
-    })
-    
-    const newUserData: User = movieRepository.create({
-        ...oldUserData,
-        ...moviesData
-    })
-    await movieRepository.save(newUserData)
+  const newUserData: User = userRepository.create({
+    ...oldUserData,
+    ...userData,
+  });
+  await userRepository.save(newUserData);
 
-    const returnUser: TUsersResponse = userSchemaResponse.parse(newUserData)
+  const returnUser: TUsersResponse = userSchemaResponse.parse(newUserData);
 
-    return returnUser
-}
+  return returnUser;
+};
 
-export default updateUsersService
+export default updateUsersService;

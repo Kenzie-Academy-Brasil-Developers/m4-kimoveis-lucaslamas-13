@@ -5,25 +5,25 @@ import { AppDataSource } from "../../data-source";
 import { AppError } from "../../error";
 
 const ensureCategoriesNameAlreadyExistsMiddleware = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<Response | void> => {
-    const categoryRepository: Repository<Category> = AppDataSource.getRepository(Category);
-  
-    if(req.body.name){
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<Response | void> => {
+  const categoryRepository: Repository<Category> =
+    AppDataSource.getRepository(Category);
+
+  if (req.body.name) {
     const category: Category | null = await categoryRepository.findOne({
       where: {
         name: req.body.name,
       },
     });
-  
-    if(category){
-      throw new AppError("Category already exists", 409)
+
+    if (category) {
+      throw new AppError("Category already exists", 409);
     }
-  
   }
-    return next();
-  };
-  
-  export { ensureCategoriesNameAlreadyExistsMiddleware };
+  return next();
+};
+
+export { ensureCategoriesNameAlreadyExistsMiddleware };

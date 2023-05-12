@@ -1,7 +1,10 @@
 import { Router } from "express";
 import { ensurebodyIsValidMiddleware } from "../middlewares/ensureBodyIsValid.middlewares";
 import { schedulesSchemaRequest } from "../schemas/schedules.schemas";
-import { createSchedulesController, listSchedulesWithRealEstateController } from "../controllers/schedules.controllers";
+import {
+  createSchedulesController,
+  listSchedulesWithRealEstateController,
+} from "../controllers/schedules.controllers";
 import { ensureTokenIsValidMiddleware } from "../middlewares/ensureTokenIsValid.middlewares";
 import { ensureRealEstateBodyIdAlreadyExistsMiddleware } from "../middlewares/schedules/ensureRealEstateBodyIdAlreadyExists.middlewares";
 import { ensureRealEstateScheduleAlreadyExistsMiddleware } from "../middlewares/schedules/ensureRealEstateScheduleAlreadyExists.middlewares";
@@ -22,5 +25,11 @@ schedulesRoutes.post(
   ensureHourAndDayMiddlewares,
   createSchedulesController
 );
-schedulesRoutes.get("/realEstate/:id", ensureTokenIsValidMiddleware, ensureAdminIsTrueMiddleware, ensureRealEstateParamsIdAlreadyExistsMiddleware, listSchedulesWithRealEstateController)
+schedulesRoutes.get(
+  "/realEstate/:id",
+  ensureTokenIsValidMiddleware,
+  ensureAdminIsTrueMiddleware,
+  ensureRealEstateParamsIdAlreadyExistsMiddleware,
+  listSchedulesWithRealEstateController
+);
 export { schedulesRoutes };

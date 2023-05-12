@@ -5,25 +5,25 @@ import { AppDataSource } from "../../data-source";
 import { AppError } from "../../error";
 
 const ensureIdIsValidMiddlewares = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<Response | void> => {
-    const categoryRepository: Repository<Category> = AppDataSource.getRepository(Category);
-  
-    if(req.params.id){
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<Response | void> => {
+  const categoryRepository: Repository<Category> =
+    AppDataSource.getRepository(Category);
+
+  if (req.params.id) {
     const category: Category | null = await categoryRepository.findOne({
       where: {
-        id:Number(req.params.id),
+        id: Number(req.params.id),
       },
     });
-  
-    if(!category){
-      throw new AppError("Category not found", 404)
+
+    if (!category) {
+      throw new AppError("Category not found", 404);
     }
-  
   }
-    return next();
-  };
-  
-  export { ensureIdIsValidMiddlewares };
+  return next();
+};
+
+export { ensureIdIsValidMiddlewares };

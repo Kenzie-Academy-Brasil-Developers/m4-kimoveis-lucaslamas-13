@@ -1,19 +1,17 @@
-import { Repository } from "typeorm"
-import User from "../../entities/users.entity"
-import { AppDataSource } from "../../data-source"
-import { TAllUsersResponse } from "../../interfaces/users.interfaces"
-import { usersSchemaResponse } from "../../schemas/users.schemas"
-
+import { Repository } from "typeorm";
+import User from "../../entities/users.entity";
+import { AppDataSource } from "../../data-source";
+import { TAllUsersResponse } from "../../interfaces/users.interfaces";
+import { usersSchemaResponse } from "../../schemas/users.schemas";
 
 const listUsersService = async (): Promise<TAllUsersResponse> => {
+  const userRepository: Repository<User> = AppDataSource.getRepository(User);
 
-    const userRepository: Repository<User> = AppDataSource.getRepository(User)
+  const user: User[] = await userRepository.find();
 
-    const user: User[] = await userRepository.find()
+  const returnUsers: TAllUsersResponse = usersSchemaResponse.parse(user);
 
-    const returnUsers: TAllUsersResponse = usersSchemaResponse.parse(user)
-    
-    return returnUsers
-}
+  return returnUsers;
+};
 
-export default listUsersService
+export default listUsersService;

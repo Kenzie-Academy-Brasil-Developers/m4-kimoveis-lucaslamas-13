@@ -36,11 +36,12 @@ const listSchedulesWithRealEstateService = async (
     },
   });
 
-  const realEstateRepository: Repository<RealEstate> = AppDataSource.getRepository(RealEstate)
+  const realEstateRepository: Repository<RealEstate> =
+    AppDataSource.getRepository(RealEstate);
 
   const realEstate: RealEstate | null = await realEstateRepository.findOne({
-    where: {id: realEstateId}
-  })
+    where: { id: realEstateId },
+  });
 
   const allInformation = {
     address: { ...address },
@@ -51,7 +52,7 @@ const listSchedulesWithRealEstateService = async (
     size: realEstate?.size,
     sold: realEstate?.sold,
     updatedAt: realEstate?.updatedAt,
-    value: realEstate?.value
+    value: realEstate?.value,
   };
 
   return allInformation;

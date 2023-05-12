@@ -5,41 +5,49 @@ import listUsersService from "../services/users/listUsers.services";
 import updateUsersService from "../services/users/updateUsers.services";
 import deleteUsersService from "../services/users/deleteUsers.service";
 
-const createUsersController = async (req: Request, res: Response): Promise<Response> => {
+const createUsersController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const userData: TUsersRequest = req.body;
+  const newUser = await createUsersService(userData);
 
-    const userData: TUsersRequest = req.body 
-    const newUser = await createUsersService(userData)
+  return res.status(201).json(newUser);
+};
 
-    return res.status(201).json(newUser)
-}
+const listUsersController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const users = await listUsersService();
+  return res.status(200).json(users);
+};
 
-const listUsersController = async (req: Request, res: Response): Promise<Response> => {
+const updateUsersController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const usersData: TUsersUpdate = req.body;
+  const usersId: number = Number(req.params.id);
 
-    const users = await listUsersService()
-    return res.status(200).json(users)
-}
+  const newUsersData = await updateUsersService(usersData, usersId);
+  return res.json(newUsersData);
+};
 
-const updateUsersController = async (req: Request, res: Response): Promise<Response> => {
+const deleteUsersController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const usersId: number = Number(req.params.id);
 
-    const usersData: TUsersUpdate = req.body
-    const usersId: number = Number(req.params.id)
+  await deleteUsersService(usersId);
 
-    const newUsersData = await updateUsersService(usersData, usersId)
-    return res.json(newUsersData)
-}
-
-const deleteUsersController = async (req: Request, res: Response): Promise<Response> => {
-
-    const usersId: number = Number(req.params.id)
-
-    await deleteUsersService(usersId)
-
-    return res.status(204).send()
-}
+  return res.status(204).send();
+};
 
 export {
-    createUsersController,
-    listUsersController,
-    updateUsersController,
-    deleteUsersController
-}
+  createUsersController,
+  listUsersController,
+  updateUsersController,
+  deleteUsersController,
+};
